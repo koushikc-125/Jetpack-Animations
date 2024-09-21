@@ -128,6 +128,6 @@ fun PaymentCardApp(modifier: Modifier = Modifier) {
 
 @Preview
 @Composable
-private fun show2() {
+private fun show1() {
     PaymentCardApp()
 }

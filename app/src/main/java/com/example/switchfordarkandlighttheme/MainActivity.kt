@@ -18,7 +18,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             SwitchForDarkandLightThemeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PaymentCardApp(modifier = Modifier.padding(innerPadding))
+                    //PaymentCardApp(modifier = Modifier.padding(innerPadding))         //For Payment Card Animation
+                    TopBlur(modifier = Modifier.padding(innerPadding))                  //For Top Bar animation
                 }
             }
         }

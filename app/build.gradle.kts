@@ -66,8 +66,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
-    implementation(libs.androidx.constraintlayout.compose)
-
+//For Extended Icons
     implementation(libs.material.icons.extended.android)
+//For Blur
+    implementation("dev.chrisbanes.haze:haze-jetpack-compose:0.5.4")
+    implementation("dev.chrisbanes.haze:haze-materials:0.5.4")
 }
