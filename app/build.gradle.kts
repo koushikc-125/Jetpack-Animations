@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.switchfordarkandlighttheme"
-    compileSdk = 34
+    namespace = "com.example.JetpackAnimation"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.switchfordarkandlighttheme"
+        applicationId = "com.example.JetpackAnimationTheme"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -71,4 +71,17 @@ dependencies {
 //For Blur
     implementation("dev.chrisbanes.haze:haze-jetpack-compose:0.5.4")
     implementation("dev.chrisbanes.haze:haze-materials:0.5.4")
+
+    //Lucide icons
+    implementation("com.composables:icons-lucide-android:1.1.0")
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+    //Startup
+    //implementation("androidx.startup:startup-runtime:1.2.0")
+    //banchmark
+    implementation("androidx.profileinstaller:profileinstaller:1.4.1")
+    // For generating profiles
+    debugImplementation("androidx.benchmark:benchmark-macro-junit4:1.3.4")
+    //windowSplashScreenBackground
+    implementation(libs.material)
 }

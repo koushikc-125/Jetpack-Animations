@@ -1,4 +1,4 @@
-package com.example.switchfordarkandlighttheme
+package com.example.JetpackAnimation.NewElements
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
@@ -33,10 +33,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-
+import com.example.JetpackAnimation.Navigator
 
 @Composable
-fun PaymentCardApp(modifier: Modifier = Modifier) {
+fun PaymentCardApp(navController: Navigator, title: String) {
     var show by remember { mutableStateOf(false) }
     val scale = remember {
         Animatable(1f)
@@ -129,5 +129,6 @@ fun PaymentCardApp(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun show1() {
-    PaymentCardApp()
+    val nav = Navigator()
+    PaymentCardApp(nav,"Payment Card")
 }

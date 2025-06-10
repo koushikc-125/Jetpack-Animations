@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">SwitchForDarkandLightTheme</string>
+    <string name="app_name">Components</string>
+    <string name="title">Jetpack Components</string>
 </resources>

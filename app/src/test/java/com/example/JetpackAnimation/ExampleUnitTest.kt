@@ -1,4 +1,4 @@
-package com.example.switchfordarkandlighttheme
+package com.example.JetpackAnimation
 
 import org.junit.Test
 

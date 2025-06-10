@@ -1,4 +1,4 @@
-package com.example.switchfordarkandlighttheme
+package com.example.JetpackAnimation.NewElements
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,12 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.JetpackAnimation.Navigator
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 import dev.chrisbanes.haze.hazeChild
 
 @Composable
-fun TopBlur(modifier: Modifier) {
+fun TopBlur(navController: Navigator, title: String) {
     val hazeState = remember { HazeState() }
 
     Scaffold(
@@ -82,7 +83,7 @@ fun TopBlur(modifier: Modifier) {
         ) {
             items(50) {
                 ElevatedCard(
-                    colors = CardDefaults.elevatedCardColors(Color.Blue),
+                    colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.primary),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(150.dp)
@@ -97,5 +98,6 @@ fun TopBlur(modifier: Modifier) {
 @Preview
 @Composable
 private fun show2() {
-    TopBlur(modifier = Modifier)
+    val nav = Navigator()
+    TopBlur(nav,"Top Bar")
 }

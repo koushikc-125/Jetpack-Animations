@@ -1,4 +1,4 @@
-package com.example.switchfordarkandlighttheme.ui.theme
+package com.example.JetpackAnimation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

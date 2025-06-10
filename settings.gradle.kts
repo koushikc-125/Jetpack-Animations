@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SwitchForDarkandLightTheme"
+rootProject.name = "JetpackAnimation"
 include(":app")
  
