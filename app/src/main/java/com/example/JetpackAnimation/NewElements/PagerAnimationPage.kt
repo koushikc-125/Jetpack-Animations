@@ -1,6 +1,5 @@
 package com.example.newapplication20.NewElements
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
@@ -13,8 +12,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,7 +22,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -35,14 +31,10 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -57,16 +49,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import com.composables.icons.lucide.ChevronLeft
-import com.composables.icons.lucide.EllipsisVertical
-import com.composables.icons.lucide.Lucide
-import com.example.JetpackAnimation.Navigator
-import com.example.JetpackAnimation.ui.theme.newFont
+import com.example.JetpackAnimation.designsystem.component.PrimaryScaffoldCenterAlignedTopBar
+import com.example.JetpackAnimation.designsystem.component.PrimaryScaffoldTopBar
+import com.example.JetpackAnimation.designsystem.icon.ApplicationIcons
 import kotlinx.coroutines.launch
 
 data class List(
@@ -77,83 +65,22 @@ val cardItem = listOf(
     List(1),
     List(2),
     List(3),
-    List(4),
+    List(4)
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedContentLambdaTargetStateParameter")
 @Composable
-fun PagerAnimation(
-    navController: Navigator,
+fun PagerAnimationPage(
+    onBack: () -> Unit,
     title: String,
 ) {
     val pagerState = rememberPagerState { cardItem.size }
-    var autoScroll by remember { mutableStateOf(false) }
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                modifier = Modifier
-                    .padding(horizontal = 10.dp),
-                title = {
-                    Text(title, fontFamily = newFont, fontWeight = FontWeight.Bold)
-                },
-                navigationIcon = {
-                    Box(
-                        Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                            .background(MaterialTheme.colorScheme.onPrimary)
-                            .clickable { navController.navigateUp() },
-                        Alignment.Center
-                    ) {
-                        Icon(
-                            Lucide.ChevronLeft,
-                            "Back",
-                            Modifier
-                                .size(20.dp)
-                                .offset(x = -1.dp)
-                        )
-                    }
-                },
-                actions = {
-                    var showDropDown by remember { mutableStateOf(false) }
 
-                    Box(
-                        Modifier
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                            .background(MaterialTheme.colorScheme.onPrimary)
-                            .clickable { showDropDown = !showDropDown },
-                        Alignment.Center
-                    ) {
-                        Icon(
-                            Lucide.EllipsisVertical, "Theme Options",
-                            Modifier.size(24.dp)
-                        )
-                    }
-                    if (showDropDown) {
-                        DropdownMenu(
-                            showDropDown,
-                            { showDropDown = !showDropDown },
-                        ) {
-                            DropdownMenuItem(
-                                {
-                                    Text(
-                                        "Auto Scroll",
-                                        fontFamily = newFont,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                },
-                                { autoScroll = !autoScroll }
-                            )
-                        }
-                    }
-                }
-            )
-        },
-        bottomBar = {
+    PrimaryScaffoldTopBar(
+        showNavigationButton = true,
+        navigationButtonAction = { onBack() },
+        showBottomBar = true,
+        bottomBarContent = {
             BottomButtons(pagerState)
         }
     ) { padding ->
@@ -255,21 +182,6 @@ fun InnerDot(dotSize: Dp, isSelected: Boolean) {
 
 @Composable
 fun PagerElement(pagerState: PagerState) {
-
-//    LaunchedEffect(Unit) {
-//        while(true) {
-//            delay(2000)
-//            val target = if (pagerState.currentPage < pagerState.pageCount - 1) pagerState.currentPage + 1 else 0
-//            pagerState.animateScrollToPage(
-//                page = target,
-//                animationSpec = tween(
-//                    durationMillis = 500,
-//                    easing = FastOutSlowInEasing
-//                )
-//            )
-//        }
-//    }
-
     HorizontalPager(
         pagerState,
         modifier = Modifier.testTag("horizontal_pager") // Add this line
@@ -289,8 +201,7 @@ fun PagerElement(pagerState: PagerState) {
                 ) {
                     Text(
                         text = "No ${pager + 1}",
-                        fontFamily = newFont,
-                        fontWeight = FontWeight.Bold
+                        style = MaterialTheme.typography.titleMedium
                     )
                 }
             }
@@ -340,11 +251,13 @@ fun BackButton(pagerState: PagerState) {
                 pagerState.animateScrollToPage(next)
             }
         },
-        modifier = Modifier.testTag("Back Icon").width(80.dp),
+        modifier = Modifier
+            .testTag("Back Icon")
+            .width(80.dp),
         enabled = !pagerState.isScrollInProgress,
         contentPadding = PaddingValues()
     ) {
-        Icon(Lucide.ChevronLeft, "Back Icon",Modifier.size(30.dp))
+        Icon(ApplicationIcons.Back, "Back", Modifier.size(30.dp))
     }
 }
 
@@ -376,19 +289,13 @@ fun ContinueButton(pagerState: PagerState) {
             targetState = buttonState,
             transitionSpec = {
                 if (targetState) {
-                    // Transitioning to "Sign up?"
-                    // "Sign up?" slides in from bottom to top
                     (slideInVertically(initialOffsetY = { height -> height }) + fadeIn())
                         .togetherWith(
-                            // "Continue" slides out toward the top
                             slideOutVertically(targetOffsetY = { height -> -height }) + fadeOut()
                         )
                 } else {
-                    // Transitioning to "Continue"
-                    // "Continue" appears in the middle and expands in place
                     (slideInVertically(initialOffsetY = { height -> -height }) + fadeIn())
                         .togetherWith(
-                            // "Continue" slides out toward the top
                             slideOutVertically(targetOffsetY = { height -> height }) + fadeOut()
                         )
                 }
@@ -397,16 +304,8 @@ fun ContinueButton(pagerState: PagerState) {
         ) { change ->
             Text(
                 if (change) "Sign up?" else "Continue",
-                fontFamily = newFont,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
-}
-
-@Preview
-@Composable
-private fun Show() {
-    val nav = Navigator()
-    PagerAnimation(nav, "Name")
 }

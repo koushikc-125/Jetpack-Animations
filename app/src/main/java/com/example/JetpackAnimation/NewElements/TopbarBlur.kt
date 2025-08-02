@@ -22,27 +22,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.JetpackAnimation.Navigator
+import com.example.JetpackAnimation.home.ui.ScaffoldSampleMode
+import dev.chrisbanes.haze.HazeInputScale
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
-import dev.chrisbanes.haze.hazeChild
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.materials.HazeMaterials
 
 @Composable
-fun TopBlur(navController: Navigator, title: String) {
+fun TopBlur(
+    onBack: () -> Unit,
+    title: String, mode: ScaffoldSampleMode = ScaffoldSampleMode.Default,
+    inputScale: HazeInputScale = HazeInputScale.Default,
+) {
     val hazeState = remember { HazeState() }
+    val style = HazeMaterials.regular(MaterialTheme.colorScheme.surface)
 
     Scaffold(
         topBar = {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .hazeEffect(state = hazeState, style = style) {
+                        this.inputScale = inputScale
+                    }
                     .height(100.dp)
-                    .hazeChild(state = hazeState)
             ) {
                 Row(
                     modifier = Modifier
@@ -68,12 +75,7 @@ fun TopBlur(navController: Navigator, title: String) {
     ) { padding ->
         LazyVerticalStaggeredGrid(
             modifier = Modifier
-                .haze(
-                    hazeState,
-                    backgroundColor = MaterialTheme.colorScheme.background,
-                    tint = Color.Transparent,
-                    blurRadius = 30.dp,
-                )
+                .hazeSource(state = hazeState)
                 .fillMaxSize()
                 .padding(horizontal = 5.dp),
             columns = StaggeredGridCells.Fixed(2),
@@ -92,12 +94,4 @@ fun TopBlur(navController: Navigator, title: String) {
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-private fun show2() {
-    val nav = Navigator()
-    TopBlur(nav,"Top Bar")
 }

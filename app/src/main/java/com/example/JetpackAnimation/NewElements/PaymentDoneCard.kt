@@ -17,6 +17,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -33,10 +34,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import com.example.JetpackAnimation.Navigator
 
 @Composable
-fun PaymentCardApp(navController: Navigator, title: String) {
+fun PaymentCardApp(
+    onBack: () -> Unit,
+    title: String
+) {
     var show by remember { mutableStateOf(false) }
     val scale = remember {
         Animatable(1f)
@@ -66,7 +69,7 @@ fun PaymentCardApp(navController: Navigator, title: String) {
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         ElevatedCard(
@@ -90,7 +93,7 @@ fun PaymentCardApp(navController: Navigator, title: String) {
                             show = !show
                         }
                         .zIndex(0f)
-                ) {}
+                )
 
                 Text(
                     "$25",
@@ -124,11 +127,4 @@ fun PaymentCardApp(navController: Navigator, title: String) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-private fun show1() {
-    val nav = Navigator()
-    PaymentCardApp(nav,"Payment Card")
 }

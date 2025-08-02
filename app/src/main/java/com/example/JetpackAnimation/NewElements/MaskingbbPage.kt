@@ -2,93 +2,62 @@ package com.example.newapplication20.NewElements
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.BlurredEdgeTreatment
 import androidx.compose.ui.draw.blur
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.composables.icons.lucide.BadgePlus
-import com.composables.icons.lucide.ChevronLeft
-import com.composables.icons.lucide.EllipsisVertical
-import com.composables.icons.lucide.Lucide
-import com.example.JetpackAnimation.Navigator
-import com.example.JetpackAnimation.ui.theme.newFont
+import com.example.JetpackAnimation.designsystem.component.PrimaryScaffoldCenterAlignedTopBar
+import com.example.JetpackAnimation.designsystem.icon.ApplicationIcons
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MaskingBottomBar(navController: Navigator, title: String) {
-    Scaffold(topBar = {
-        CenterAlignedTopAppBar(modifier = Modifier.padding(horizontal = 10.dp), title = {
-            Text(title, fontFamily = newFont, fontWeight = FontWeight.Bold)
-        }, navigationIcon = {
+fun MaskingbbPage(
+    onBack: () -> Unit,
+    title: String
+) {
+    PrimaryScaffoldCenterAlignedTopBar(
+        appTitle = title,
+        showNavigationButton = true,
+        navigationButtonAction = { onBack() },
+        showActionButton = true,
+        actionButtonAction = {},
+        showBottomBar = true,
+        showFloatingActionButton = true,
+        bottomBarContent = {
             Box(
                 Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .clickable { navController.navigateUp() }, Alignment.Center
-            ) {
-                Icon(
-                    Lucide.ChevronLeft, "Back", Modifier.size(20.dp)
-                )
-            }
-        }, actions = {
-            Box(
-                Modifier
-                    .size(40.dp)
-                    .clip(CircleShape)
-                    .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                    .background(MaterialTheme.colorScheme.onPrimary)
-                    .clickable {},
+                    .fillMaxWidth()
+                    .height(150.dp),
                 Alignment.Center
             ) {
-                Icon(
-                    Lucide.EllipsisVertical, "User", Modifier.size(20.dp)
-                )
-            }
-        })
-    }, bottomBar = {
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(150.dp), Alignment.Center
-        ) {
-            FloatingActionButton({}) {
-                Icon(Lucide.BadgePlus, "Plus")
+                FloatingActionButton({}) {
+                    Icon(ApplicationIcons.Options, "Badge")
+                }
             }
         }
-    }) { padding ->
+    ) { padding ->
         val color1 = MaterialTheme.colorScheme.background
         Box(Modifier.fillMaxSize()) {
             LazyColumn(

@@ -1,4 +1,4 @@
-package com.example.JetpackAnimation.ui.theme
+package com.example.JetpackAnimation.designsystem.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -51,7 +51,7 @@ fun JetpackAnimationTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = typography(),
         content = content
     )
 }

@@ -1,16 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.poko)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
     namespace = "com.example.JetpackAnimation"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.JetpackAnimationTheme"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -28,14 +31,23 @@ android {
                 "proguard-rules.pro"
             )
         }
+        create("benchmark") {
+            initWith(buildTypes.getByName("release"))
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += listOf("release")
+            isDebuggable = false
+        }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
+
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "21"
     }
+
     buildFeatures {
         compose = true
     }
@@ -50,15 +62,17 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material)
+    implementation(libs.material.icons.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,22 +80,22 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-//For Extended Icons
-    implementation(libs.material.icons.extended.android)
-//For Blur
-    implementation("dev.chrisbanes.haze:haze-jetpack-compose:0.5.4")
-    implementation("dev.chrisbanes.haze:haze-materials:0.5.4")
+    //Serialization
+    implementation(libs.kotlinx.serialization.core)
+    implementation(libs.kotlinx.serialization.json)
+    //for Blur
+    implementation("dev.chrisbanes.haze:haze:1.6.4")
+    //nav3
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.navigation3.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel.navigation3.android)
+    //windowsSizeClasses
+    implementation(libs.androidx.material3.window.size.class1)
+    //coil
+    implementation(libs.coil.compose)
+    //splashScreenColor
+    implementation(libs.android.material)
+    //Icons
+    implementation(libs.androidx.material.icons.extended)
 
-    //Lucide icons
-    implementation("com.composables:icons-lucide-android:1.1.0")
-    //Navigation
-    implementation("androidx.navigation:navigation-compose:2.9.0")
-    //Startup
-    //implementation("androidx.startup:startup-runtime:1.2.0")
-    //banchmark
-    implementation("androidx.profileinstaller:profileinstaller:1.4.1")
-    // For generating profiles
-    debugImplementation("androidx.benchmark:benchmark-macro-junit4:1.3.4")
-    //windowSplashScreenBackground
-    implementation(libs.material)
 }

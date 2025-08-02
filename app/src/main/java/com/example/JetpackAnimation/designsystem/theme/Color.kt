@@ -1,4 +1,4 @@
-package com.example.JetpackAnimation.ui.theme
+package com.example.JetpackAnimation.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

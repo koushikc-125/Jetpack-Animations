@@ -1,85 +1,38 @@
 package com.example.JetpackAnimation.NewElements
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.composables.icons.lucide.ChevronLeft
-import com.composables.icons.lucide.EllipsisVertical
-import com.composables.icons.lucide.Lucide
-import com.example.JetpackAnimation.Navigator
-import com.example.JetpackAnimation.ui.theme.newFont
+import com.example.JetpackAnimation.designsystem.component.PrimaryScaffoldTopBar
 import kotlin.math.sqrt
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DotGesture(navController: Navigator, title: String) {
+fun DotGesturePage(
+    onBack: () -> Unit,
+    title: String
+) {
     var fingerPosition by remember { mutableStateOf<Offset?>(null) }
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(title, fontFamily = newFont, fontWeight = FontWeight.Bold)
-                }, navigationIcon = {
-                    Box(
-                        Modifier
-                            .padding(horizontal = 10.dp)
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                            .background(MaterialTheme.colorScheme.onPrimary)
-                            .clickable { navController.navigateUp() }, Alignment.Center
-                    ) {
-                        Icon(
-                            Lucide.ChevronLeft, "Back", Modifier.size(20.dp)
-                        )
-                    }
-                }, actions = {
-                    Box(
-                        Modifier
-                            .padding(horizontal = 10.dp)
-                            .size(40.dp)
-                            .clip(CircleShape)
-                            .border(0.4.dp, MaterialTheme.colorScheme.primary, CircleShape)
-                            .background(MaterialTheme.colorScheme.onPrimary)
-                            .clickable {},
-                        Alignment.Center
-                    ) {
-                        Icon(
-                            Lucide.EllipsisVertical, "User", Modifier.size(20.dp)
-                        )
-                    }
-                })
-        },
+
+    PrimaryScaffoldTopBar(
+        showNavigationButton = true,
+        navigationButtonAction = { onBack() }
     ) { padding ->
         Box(
             modifier = Modifier

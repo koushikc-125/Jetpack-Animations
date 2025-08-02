@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.JetpackAnimationTheme" parent="android:Theme.Material.Light.NoActionBar">
+
+        <item name="android:windowSplashScreenBackground" tools:ignore="PrivateResource" tools:targetApi="31">
+            @color/m3_sys_color_dynamic_dark_surface
+        </item>
+
+    </style>
+</resources>
